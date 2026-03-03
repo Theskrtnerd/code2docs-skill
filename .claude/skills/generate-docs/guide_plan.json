@@ -1,0 +1,77 @@
+[
+  {
+    "slug": "overview",
+    "title": "Overview",
+    "description": "High-level introduction to the ReadMe AI Service, its purpose as an MCP server and AI proxy, and key features including chat, vectorization, linting, and evaluation capabilities."
+  },
+  {
+    "slug": "getting-started",
+    "title": "Getting Started",
+    "description": "Step-by-step guide to setting up the AI service locally, including prerequisites (Node.js 22.x, API keys), installation, building, and running the development server."
+  },
+  {
+    "slug": "environment-configuration",
+    "title": "Environment Configuration",
+    "description": "Complete reference for all environment variables, API keys, and configuration options required for different features (OpenAI, Google Gemini, MongoDB, ReadMe integration)."
+  },
+  {
+    "slug": "mcp-server",
+    "title": "MCP Server",
+    "description": "Comprehensive guide to the Model Context Protocol server implementation, including project identification, tool registration, caching strategy, and integration with AI assistants like Claude and Cursor."
+  },
+  {
+    "slug": "ask-ai-chat",
+    "title": "Ask AI Chat",
+    "description": "Documentation for the conversational AI chatbot feature with Retrieval-Augmented Generation (RAG), covering chat modes, customization options, and LLM configuration."
+  },
+  {
+    "slug": "ai-agent",
+    "title": "AI Agent",
+    "description": "Guide to the tool-augmented AI agent capabilities, including available tools (knowledge retrieval, web search, URL analysis, content editing), tool call flow, and extended reasoning modes."
+  },
+  {
+    "slug": "vectorization",
+    "title": "Vectorization",
+    "description": "Documentation for indexing documentation into vector embeddings for semantic search and RAG, including the vectorization process, CLI usage, and troubleshooting."
+  },
+  {
+    "slug": "linting",
+    "title": "AI Linting",
+    "description": "Guide to AI-powered content analysis for markdown documentation, including rule validation, style guide compliance scoring, and pattern detection."
+  },
+  {
+    "slug": "cli-tools",
+    "title": "CLI Tools",
+    "description": "Reference for all command-line interfaces including chat CLI, vectorization CLI, linting CLI, evaluation CLI, and MCP Inspector for testing."
+  },
+  {
+    "slug": "testing",
+    "title": "Testing and Validation",
+    "description": "Guide to running unit tests, integration tests, manual testing scenarios, and required pre-commit validation including linting and type checking."
+  },
+  {
+    "slug": "api-reference",
+    "title": "API Reference",
+    "description": "Complete API endpoint documentation for chat, agent chat, vectorization, and linting routes, including request/response formats and authentication."
+  },
+  {
+    "slug": "evaluation",
+    "title": "Evaluation and Benchmarking",
+    "description": "Documentation for creating evaluation datasets, running evaluations against ground truth data, and interpreting evaluation results for chat and linting features."
+  },
+  {
+    "slug": "deployment",
+    "title": "Deployment",
+    "description": "Guide to deploying the AI service to production, including Render configuration, environment setup, PR testing with render-preview label, and Terraform infrastructure management."
+  },
+  {
+    "slug": "troubleshooting",
+    "title": "Troubleshooting",
+    "description": "Common issues and solutions including server startup problems, build failures, test failures, MCP integration issues, and performance expectations."
+  },
+  {
+    "slug": "development-workflow",
+    "title": "Development Workflow",
+    "description": "Best practices for making changes to AI services, adding dependencies, managing the build process, and ensuring code quality through linting and testing."
+  }
+]

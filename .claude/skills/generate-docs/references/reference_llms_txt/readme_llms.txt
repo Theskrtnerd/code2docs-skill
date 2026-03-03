@@ -1,0 +1,270 @@
+# ReadMe Documentation
+
+## Guides
+- [Exporting Data](https://docs.readme.com/main/docs/exporting-data.md): Export your docs using our built-in features, tooling, and our API.
+- [Teammates and Roles](https://docs.readme.com/main/docs/manage-team.md): Control who can access admin controls and edit content.
+- [Payment and Billing Info](https://docs.readme.com/main/docs/payment-and-billing-info.md)
+- [Plans and Pricing](https://docs.readme.com/main/docs/plans-and-pricing.md): We offer a variety of plans to suit your needs, whether you’re just getting started or looking for enterprise-grade solutions.
+- [Settings](https://docs.readme.com/main/docs/project-settings.md): Access settings to manage and configure your docs.
+- [Two-Factor Authentication](https://docs.readme.com/main/docs/two-factor-authentication.md)
+- [Your Account](https://docs.readme.com/main/docs/your-account.md): We're happy you're here!
+- [Agent](https://docs.readme.com/main/docs/aiagent.md): The Agent is a powerful documentation assistant that helps you create, edit, and enhance content across Guides, API References, and Custom Pages with advanced research and analysis capabilities.
+- [Ask AI](https://docs.readme.com/main/docs/ask-ai.md): An AI assistant for your documentation, delivering answers to your users‘ questions—powered by OpenAI. (Previously Owlbot AI)
+- [Owlbot AI (Legacy)](https://docs.readme.com/main/docs/owlbot.md): Powered by OpenAI, Owlbot AI answers your users’ questions in a snap 🦉
+- [AI Dropdown](https://docs.readme.com/main/docs/AskAI.md): Learn about leveraging powerful AI assistants that help users find answers, generate code, and understand complex concepts without ever leaving your docs.
+- [Docs Audit](https://docs.readme.com/main/docs/docs-audit.md): An overview of your documentation scored against a customizable style guide.
+- [Linter](https://docs.readme.com/main/docs/linter.md): An AI-powered way to check page content against your own style guide.
+- [LLMs.txt](https://docs.readme.com/main/docs/LLMstxt.md): Control how AI language models interpret your API documentation
+- [Auto-Generate Your MCP Server](https://docs.readme.com/main/docs/generate-your-own-mcp-server.md)
+- [MCP (Model Context Protocol)](https://docs.readme.com/main/docs/mcp-servers.md)
+- [MCP Use Cases for Technical Writers](https://docs.readme.com/main/docs/mcp-use-cases-for-technical-writers.md)
+- [ReadMe's MCP Server](https://docs.readme.com/main/docs/readmes-mcp-server.md): Set up ReadMe's MCP server to manage your documentation through AI development tools.
+- [API Exploration Tools](https://docs.readme.com/main/docs/api-exploration-tools.md)
+- [API Reference Landing Pages](https://docs.readme.com/main/docs/reference-core-pages.md)
+- [My Requests Overview](https://docs.readme.com/main/docs/my-requests.md): Let your users see their recently made API requests and debug issues right from your docs
+- [Other Ways to Send API Requests](https://docs.readme.com/main/docs/other-ways-to-use-api-metrics.md)
+- [SDKs](https://docs.readme.com/main/docs/sdks.md): This section explains the prerequisites to consider when setting up a ReadMe SDK for the first time.
+- [.NET Setup](https://docs.readme.com/main/docs/net-setup.md)
+- [Python (Django) Setup](https://docs.readme.com/main/docs/python-django-api-metrics.md)
+- [Python (Flask) Setup](https://docs.readme.com/main/docs/python-flask-api-metrics.md)
+- [Ruby (Rails/Rack) Setup](https://docs.readme.com/main/docs/ruby-api-metrics-set-up.md)
+- [Node.js Setup](https://docs.readme.com/main/docs/sending-logs-to-readme-with-nodejs.md)
+- [PHP (Laravel) Setup](https://docs.readme.com/main/docs/sending-logs-to-readme-with-php-laravel.md)
+- [Show API Request History To Users](https://docs.readme.com/main/docs/showing-api-logs-to-users.md)
+- [Real-Time API Logs Overview](https://docs.readme.com/main/docs/sending-api-logs.md)
+- [Creating a Dev FAQ](https://docs.readme.com/main/docs/creating-a-dev-faq.md)
+- [Discussion Forums](https://docs.readme.com/main/docs/discussion-forums.md)
+- [Managing Forum Support](https://docs.readme.com/main/docs/managing-forum-support.md)
+- [Health Check Status Updates](https://docs.readme.com/main/docs/health-check-status-updates.md): Communicate real-time status to your users
+- [Community Building](https://docs.readme.com/main/docs/community-building.md)
+- [Supporting Your Developers](https://docs.readme.com/main/docs/supporting-your-developers.md)
+- [Developer Dashboard Overview](https://docs.readme.com/main/docs/developer-dashboard.md): Combine personalized, real-time API logs with API documentation. Plus surface your developers’ API keys right in your hub ✨
+- [My Developers Overview](https://docs.readme.com/main/docs/my-developers.md): In-depth developer profiles where your team can dig into API usage and quickly debug issues 🔎
+- [Using Amazon API Gateway with the Personalized Docs Webhook](https://docs.readme.com/main/docs/amazon-api-gateway-webhook.md)
+- [Personalized API Docs Overview](https://docs.readme.com/main/docs/personalized-docs.md): Inject your users' API keys, server variables, and more!
+- [Set Up Personalized Docs](https://docs.readme.com/main/docs/personalized-docs-webhook.md): By telling ReadMe about the currently logged in user, the docs can show them their real API key, request history, and more!
+- [Export Metrics Data](https://docs.readme.com/main/docs/exporting-metrics-data.md)
+- [API & Docs Metrics Charts](https://docs.readme.com/main/docs/using-metrics-charts.md): Dig into the details of how your developers are using your API and docs with Metrics charts 🕵
+- [Building APIs from Scratch with the API Designer](https://docs.readme.com/main/docs/building-apis-from-scratch-with-the-api-designer.md)
+- [GraphQL API Reference (Limited Support)](https://docs.readme.com/main/docs/graphql.md): Try our GraphQL API Reference!
+- [API Reference](https://docs.readme.com/main/docs/api-reference.md): Learn how to use your API Reference to transform your API into a clear and accessible solution for developers.
+- [OAuth Flows in Try It!](https://docs.readme.com/main/docs/oauth-workflows-in-try-it.md): OAuth flows automatically apply authentication headers to API requests based on your OpenAPI security schemes
+- [OpenAPI Upload and Management](https://docs.readme.com/main/docs/openapi-upload-and-management.md): Learn how to upload and manage your OAS files.
+- [Changelog](https://docs.readme.com/main/docs/changelog.md): Keep a running record of your latest updates
+- [Custom Pages](https://docs.readme.com/main/docs/custom-page.md)
+- [Getting Started with Documentation](https://docs.readme.com/main/docs/document-api-overview.md)
+- [Creating and Managing Guides](https://docs.readme.com/main/docs/creating-and-managing-guides.md)
+- [Creating Mermaid Diagrams](https://docs.readme.com/main/docs/creating-mermaid-diagrams.md)
+- [Guides](https://docs.readme.com/main/docs/guides.md)
+- [Structuring Your Documentation](https://docs.readme.com/main/docs/structuring-your-docs.md)
+- [Landing Page](https://docs.readme.com/main/docs/landing-page.md)
+- [Custom Components](https://docs.readme.com/main/docs/building-custom-mdx-components.md)
+- [Built-in Components](https://docs.readme.com/main/docs/built-in-components.md): ReadMe provides several powerful MDX components out of the box.
+- [MDX](https://docs.readme.com/main/docs/mdx.md)
+- [Troubleshoot MDX Errors](https://docs.readme.com/main/docs/rendering-errors-invalid-mdx.md)
+- [ReadMe Micro](https://docs.readme.com/main/docs/readme-micro.md): Keep track of your team’s internal APIs and microservices with ReadMe’s auto-generated documentation solution.
+- [Creating a Recipe](https://docs.readme.com/main/docs/creating-recipes.md)
+- [Recipes](https://docs.readme.com/main/docs/recipes.md): Step-by-step code walkthroughs for your most popular API use cases
+- [Reusable Content](https://docs.readme.com/main/docs/reusable-content.md): Create reusable blocks of Markdown content to use repeatedly across your project’s Guides and API reference pages!
+- [Welcome to ReadMe](https://docs.readme.com/main/docs/about-readme.md): Helping you create docs that make your APIs easy to use and maintain.
+- [Build with AI](https://docs.readme.com/main/docs/ai-overview.md): Your docs with built-in AI features that empower readers and writers.
+- [Quickstart](https://docs.readme.com/main/docs/quickstart.md)
+- [Customizing Docs Using CSS Variables](https://docs.readme.com/main/docs/customizing-docs-using-css-variables.md)
+- [Custom CSS and JavaScript](https://docs.readme.com/main/docs/custom-css-and-javascript.md)
+- [Dark Mode: Overview & Custom CSS](https://docs.readme.com/main/docs/custom-css-with-dark-mode.md)
+- [Custom Icons](https://docs.readme.com/main/docs/custom-icons.md)
+- [Themes](https://docs.readme.com/main/docs/design-themes.md)
+- [Pro Tips](https://docs.readme.com/main/docs/pro-tips.md)
+- [Site Navigation](https://docs.readme.com/main/docs/site-navigation.md)
+- [Site Footer](https://docs.readme.com/main/docs/site-footer.md)
+- [Creating a Project](https://docs.readme.com/main/docs/creating-a-project.md): Learn how to create your first ReadMe project, navigate the dashboard, manage your profile, and organize your API documentation effectively.
+- [Your Dashboard and Profile](https://docs.readme.com/main/docs/your-dashboard-and-profile.md)
+- [Custom Login Page](https://docs.readme.com/main/docs/custom-login-page.md)
+- [Amazon API Gateway](https://docs.readme.com/main/docs/aws.md)
+- [Google Analytics](https://docs.readme.com/main/docs/google-analytics.md)
+- [Google Site Verification](https://docs.readme.com/main/docs/google-site-verification.md)
+- [Integrations](https://docs.readme.com/main/docs/integrations.md)
+- [Localize](https://docs.readme.com/main/docs/localize.md)
+- [reCaptcha](https://docs.readme.com/main/docs/recaptcha.md)
+- [Segment](https://docs.readme.com/main/docs/segment.md)
+- [Slack](https://docs.readme.com/main/docs/slack.md): Get updates on your docs directly within Slack!
+- [Stainless](https://docs.readme.com/main/docs/stainless.md): Automatically update your API reference when publishing an SDK with Stainless
+- [Transifex](https://docs.readme.com/main/docs/transifex.md)
+- [Typekit](https://docs.readme.com/main/docs/typekit-key.md)
+- [Zendesk](https://docs.readme.com/main/docs/zendesk.md)
+- [ReadMe's Outbound IP Addresses](https://docs.readme.com/main/docs/ip-addresses.md)
+- [Navigating Your Hub](https://docs.readme.com/main/docs/navigating-your-hub-1.md)
+- [Keyboard Shortcuts](https://docs.readme.com/main/docs/keyboard-shortcuts.md)
+- [OpenAPI Support in ReadMe](https://docs.readme.com/main/docs/openapi.md)
+- [Categories, Pages, and Subpages](https://docs.readme.com/main/docs/openapi-categories-pages-subpages.md)
+- [OpenAPI Compatibility Chart](https://docs.readme.com/main/docs/openapi-compatibility-chart.md)
+- [OpenAPI Extensions](https://docs.readme.com/main/docs/openapi-extensions.md): We've added a few OpenAPI extensions to help you better integrate with ReadMe.
+- [Re-syncing Your OpenAPI Document](https://docs.readme.com/main/docs/openapi-resyncing.md)
+- [Allow iFrames](https://docs.readme.com/main/docs/allowing-iframes.md)
+- [Having Problems Generating SSL?](https://docs.readme.com/main/docs/having-problems-generating-ssl.md)
+- [Setting Custom Domain & SSL](https://docs.readme.com/main/docs/setting-up-custom-domain.md)
+- [Turn Off Cloudflare Proxy](https://docs.readme.com/main/docs/turn-off-cloudflare-proxy.md): For customers that use Cloudflare
+- [URL Paths in ReadMe](https://docs.readme.com/main/docs/url-paths-in-readme.md)
+- [Error Pages](https://docs.readme.com/main/docs/error-pages.md): Choose what endusers see when they encounter a 404 in your project
+- [System Configuration](https://docs.readme.com/main/docs/system-configuration.md)
+- [Internal Documentation](https://docs.readme.com/main/docs/internal-documentation.md): Control who can access your docs
+- [Login Expiration](https://docs.readme.com/main/docs/login-expiration.md)
+- [Redirect Scenarios](https://docs.readme.com/main/docs/redirect-scenarios.md): Learn how and when visitors to your project are redirected to other pages
+- [Sending Data to Your Documentation's Users](https://docs.readme.com/main/docs/user-data-options.md)
+- [Upgrade FAQ](https://docs.readme.com/main/docs/upgrade-faq.md)
+- [ReadMe Refactored Upgrade Guide](https://docs.readme.com/main/docs/upgrade-to-readme-refactored.md)
+- [Documentation Structure](https://docs.readme.com/main/docs/documentation-structure.md): Learn about how we've structured our documentation for two-way syncing
+- [Bi-Directional Sync](https://docs.readme.com/main/docs/bi-directional-sync.md)
+- [Sync with GitHub](https://docs.readme.com/main/docs/sync-with-github.md)
+- [Sync with GitLab ](https://docs.readme.com/main/docs/sync-with-gitlab.md)
+- [GitHub Actions Example: Syncing Markdown](https://docs.readme.com/main/docs/github-actions-docs-example.md)
+- [GitHub Actions Example: Syncing OpenAPI](https://docs.readme.com/main/docs/github-actions-openapi-example.md)
+- [Syncing Docs via CLI / GitHub](https://docs.readme.com/main/docs/rdme.md): Update your docs automatically with `rdme`, ReadMe's official CLI and GitHub Action!
+- [Feature Requests](https://docs.readme.com/main/docs/feature-requests.md): Help us shape the future of ReadMe!
+- [Need More Support?](https://docs.readme.com/main/docs/need-more-support.md)
+- [Bug Bounty Program](https://docs.readme.com/main/docs/bug-bounty-program.md)
+- [Security FAQ](https://docs.readme.com/main/docs/security-faq.md)
+- [Technical FAQ](https://docs.readme.com/main/docs/technical-faq.md)
+- [Accessibility Conformance Report](https://docs.readme.com/main/docs/vpat.md)
+- [Branches](https://docs.readme.com/main/docs/branches.md): Branches allow admins to save changes across pages without them going live immediately.
+- [Suggest in GitHub](https://docs.readme.com/main/docs/suggest-in-github.md): Suggesting changes from GitHub allows anyone reading your documentation to provide direct feedback in context.
+- [Versioning](https://docs.readme.com/main/docs/versions.md)
+
+## API Reference
+- [Send an API Log to ReadMe](https://docs.readme.com/main/reference/post_request.md): Send an API Log to ReadMe, so that you can view developer usage metrics about your API. For more information see https://docs.readme.com/main/docs/sending-api-logs.
+- [Metrics API Introduction](https://docs.readme.com/main/reference/metrics-api-introduction.md): See how people use your docs and how developers use your API
+- [Get average page quality](https://docs.readme.com/main/reference/getaveragepagequality.md): Get the total number of project page quality votes, broken down into positive and overall votes.
+- [Get best pages](https://docs.readme.com/main/reference/getbestpages.md): Get the pages in your docs project with the highest number of positive votes.
+- [Get page comments](https://docs.readme.com/main/reference/getpagecomments.md): Get a list of comments associated with page votes within a time period.
+- [Get page breakdown](https://docs.readme.com/main/reference/getpageperformance.md): Get votes and comments for a particular project page.
+- [Get worst pages](https://docs.readme.com/main/reference/getworstpages.md): Get the pages in your docs project with the highest number of negative votes.
+- [Get difference in page views](https://docs.readme.com/main/reference/gethistoricalpageviews.md): Get percent difference period-over-period of unique and total views for a project.
+- [Get page views per day](https://docs.readme.com/main/reference/getpageviewsbyday.md): Get count of page views per day for a particular date range.
+- [Get users](https://docs.readme.com/main/reference/getpageviewsbyuser.md): Get unique user email addresses with the most views for a project, sorted by total views per user.
+- [Get views by path](https://docs.readme.com/main/reference/getpageviewsforpath.md): For a given page, see which viewers and how many times they visited, ordered by count.
+- [Get top pages](https://docs.readme.com/main/reference/gettoppages.md): Retrieve top pages associated with a project and their respective counts.
+- [Get total page views](https://docs.readme.com/main/reference/gettotalpageviews.md): Get total page views for a project.
+- [Get unique page views](https://docs.readme.com/main/reference/getuniquepageviews.md): Gets total unique page views for a project.
+- [Get top search terms](https://docs.readme.com/main/reference/gettopsearchterms.md): Retrieve top terms searched for in your project, and associated counts.
+- [Get data by search term](https://docs.readme.com/main/reference/getusersbysearchterm.md): Retrieve a breakdown of users who have searched for a particular term, include email and count.
+- [Retrieve an entry from the API Registry](https://docs.readme.com/main/reference/getapiregistry.md): Get an API definition file that's been uploaded to ReadMe.
+- [Delete specification](https://docs.readme.com/main/reference/deleteapispecification.md): Delete an API specification in ReadMe.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Get our OpenAPI Definition](https://docs.readme.com/main/reference/getapischema.md): Returns a copy of our OpenAPI Definition.
+- [Get metadata](https://docs.readme.com/main/reference/getapispecification.md): Get API specification metadata.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Update specification](https://docs.readme.com/main/reference/updateapispecification.md): Update an API specification in ReadMe.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Upload specification](https://docs.readme.com/main/reference/uploadapispecification.md): Upload an API specification to ReadMe. Or, to use a newer solution see https://docs.readme.com/main/docs/rdme.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [API v1 → v2 Update Guide](https://docs.readme.com/main/reference/api-upgrade-guide.md)
+- [Create category](https://docs.readme.com/main/reference/createcategory.md): Create a new category inside of this project.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Delete category](https://docs.readme.com/main/reference/deletecategory.md): Delete the category with this slug.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Get all categories](https://docs.readme.com/main/reference/getcategories.md): Returns all the categories for a specified version.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Get category](https://docs.readme.com/main/reference/getcategory.md): Returns the category with this slug.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Get docs for category](https://docs.readme.com/main/reference/getcategorydocs.md): Returns the docs and children docs within this category.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Update category](https://docs.readme.com/main/reference/updatecategory.md): Change the properties of a category.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Create changelog](https://docs.readme.com/main/reference/createchangelog.md): Create a new changelog entry.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Delete changelog](https://docs.readme.com/main/reference/deletechangelog.md): Delete the changelog with this slug.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Get changelog](https://docs.readme.com/main/reference/getchangelog.md): Returns the changelog with this slug.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Get changelogs](https://docs.readme.com/main/reference/getchangelogs.md): Returns a list of changelogs.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Update changelog](https://docs.readme.com/main/reference/updatechangelog.md): Update a changelog with this slug.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Create custom page](https://docs.readme.com/main/reference/createcustompage.md): Create a new custom page inside of this project.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Delete custom page](https://docs.readme.com/main/reference/deletecustompage.md): Delete the custom page with this slug.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Get custom page](https://docs.readme.com/main/reference/getcustompage.md): Returns the custom page with this slug.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Get custom pages](https://docs.readme.com/main/reference/getcustompages.md): Returns a list of custom pages.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Update custom page](https://docs.readme.com/main/reference/updatecustompage.md): Update a custom page with this slug.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Create doc](https://docs.readme.com/main/reference/createdoc.md): Create a new doc inside of this project.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Delete doc](https://docs.readme.com/main/reference/deletedoc.md): Delete the doc with this slug.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Get doc](https://docs.readme.com/main/reference/getdoc.md): Returns the doc with this slug.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Get production doc](https://docs.readme.com/main/reference/getproductiondoc.md): This is intended for use by enterprise users with staging enabled. This endpoint will return the live version of your document, whereas the standard endpoint will always return staging.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Search docs](https://docs.readme.com/main/reference/searchdocs.md): Returns all docs that match the search.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Update doc](https://docs.readme.com/main/reference/updatedoc.md): Update a doc with this slug.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Get ReadMe’s outbound IP addresses](https://docs.readme.com/main/reference/getoutboundips.md): Returns all of ReadMe’s IP addresses used for outbound webhook requests and the “Try It!” button on the API Explorer.  Although ReadMe’s outbound IP addresses may change, the IPs in this API response will be valid for at least 7 days. If you configure your API or webhooks to limit access based on these IPs, you should refresh the IP list from this endpoint weekly.
+- [Ask Owlbot AI a question](https://docs.readme.com/main/reference/askowlbot.md): Ask Owlbot a question about the content of your docs.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Limiting API Results](https://docs.readme.com/main/reference/pagination-legacy.md)
+- [Get metadata about the current project](https://docs.readme.com/main/reference/getproject.md): Returns project data for the API key.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Create version](https://docs.readme.com/main/reference/createversion.md): Create a new version.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Delete version](https://docs.readme.com/main/reference/deleteversion.md): Delete a version.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Get version](https://docs.readme.com/main/reference/getversion.md): Returns the version with this version ID.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Get versions](https://docs.readme.com/main/reference/getversions.md): Retrieve a list of versions associated with a project API key.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Update version](https://docs.readme.com/main/reference/updateversion.md): Update an existing version.  >❗ > API v1 and this route are not available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored). [Check out our API migration guide](https://docs.readme.com/main/reference/api-migration-guide) for information on how to migrate to the new API.
+- [Create an API key](https://docs.readme.com/main/reference/createapikey.md): Create an API key for your ReadMe project.
+- [Delete an API key](https://docs.readme.com/main/reference/deleteapikey.md): Delete an API key from your ReadMe project.
+- [Get an API key](https://docs.readme.com/main/reference/getapikey.md): Get an API key for your ReadMe project.
+- [Get your API keys](https://docs.readme.com/main/reference/getapikeys.md): Get the API keys for your ReadMe project.
+- [Update an API key](https://docs.readme.com/main/reference/updateapikey.md): Update an API key on your ReadMe project.
+- [Create a reference page](https://docs.readme.com/main/reference/createreference.md): Create a page in the API Reference section of your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Delete a reference page](https://docs.readme.com/main/reference/deletereference.md): Delete a page from the API Reference section of your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Get a reference page](https://docs.readme.com/main/reference/getreference.md): Get a page from the API Reference section of your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Update a reference page](https://docs.readme.com/main/reference/updatereference.md): Updates an existing page in the API Reference section of your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Create an API definition](https://docs.readme.com/main/reference/createapi.md): Create an API definition in the API Reference section of your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Delete an API definition](https://docs.readme.com/main/reference/deleteapi.md): Delete an API definition from the API Reference section of your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Get an API definition](https://docs.readme.com/main/reference/getapi.md): Get an API definition from your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Get all API definitions](https://docs.readme.com/main/reference/getapis.md): Get all API definitions from your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Update an API definition](https://docs.readme.com/main/reference/updateapi.md): Updates an API definition in the API Reference section of your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Validate an API](https://docs.readme.com/main/reference/validateapi.md): Validates an API definition for uploading to your ReadMe project.
+- [Submit your application!](https://docs.readme.com/main/reference/applytoreadme-1.md): This endpoint will let you apply to a job at ReadMe programatically, without having to go through our UI!
+- [Get open roles](https://docs.readme.com/main/reference/getopenroles-1.md): Returns all the roles we're hiring for at ReadMe!
+- [Create a branch](https://docs.readme.com/main/reference/createbranch.md): Create a new branch in your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Delete a branch](https://docs.readme.com/main/reference/deletebranch.md): Delete a branch from your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Get a branch](https://docs.readme.com/main/reference/getbranch.md): Get a branch of your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Get branches](https://docs.readme.com/main/reference/getbranches.md): Get a collection of branches in your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Updates an existing branch](https://docs.readme.com/main/reference/updatebranch.md): Update an existing branch in your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Create a category](https://docs.readme.com/main/reference/createcategory-1.md): Create a category in your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Delete a category](https://docs.readme.com/main/reference/deletecategory-1.md): Delete a category from your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Get all categories](https://docs.readme.com/main/reference/getcategories-1.md): Get all categories within a section of your ReadMe project.  The sorting of this data is dependent upon the order of the categories in your sidebar.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Get a category](https://docs.readme.com/main/reference/getcategory-1.md): Get a category in your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Get the pages within a category](https://docs.readme.com/main/reference/getcategorypages.md): Get a pages that exist within a category in your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Update a category](https://docs.readme.com/main/reference/updatecategory-1.md): Update an existing category in your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Create a changelog entry](https://docs.readme.com/main/reference/createchangelog-1.md): Create a new changelog entry in your ReadMe project.
+- [Delete a changelog entry](https://docs.readme.com/main/reference/deletechangelog-1.md): Delete a changelog entry from your ReadMe project.
+- [Get a changelog entry](https://docs.readme.com/main/reference/getchangelog-1.md): Get a changelog entry from your ReadMe project.
+- [Get all changelog entries](https://docs.readme.com/main/reference/getchangelogs-1.md): Get all changelog entries from your ReadMe project.
+- [Update a changelog entry](https://docs.readme.com/main/reference/updatechangelog-1.md): Update an existing changelog entry in your ReadMe project.
+- [Create a custom page](https://docs.readme.com/main/reference/createcustompage-1.md): Create a custom page in your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Delete a custom page](https://docs.readme.com/main/reference/deletecustompage-1.md): Delete a custom page from your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Get a custom page](https://docs.readme.com/main/reference/getcustompage-1.md): Get a custom page from your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Get all custom pages](https://docs.readme.com/main/reference/getcustompages-1.md): Get all custom pages from your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Update a custom page](https://docs.readme.com/main/reference/updatecustompage-1.md): Update an existing custom page in your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Create a guides page](https://docs.readme.com/main/reference/createguide.md): Create a page in the Guides section of your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Delete a guides page](https://docs.readme.com/main/reference/deleteguide.md): Delete a page from the Guides section of your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Get a guides page](https://docs.readme.com/main/reference/getguide.md): Get a page from the Guides section of your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Update a guides page](https://docs.readme.com/main/reference/updateguide.md): Updates an existing page in the Guides section of your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Get an image](https://docs.readme.com/main/reference/getimage.md): Get an image that was uploaded to your ReadMe project.
+- [Get uploaded images](https://docs.readme.com/main/reference/getimages.md): Get a collection of images that were uploaded to your ReadMe project.
+- [Upload an image](https://docs.readme.com/main/reference/uploadimage.md): Upload an image to your ReadMe project.
+- [Intro to the ReadMe API](https://docs.readme.com/main/reference/intro-to-the-readme-api.md): Control your docs programmatically with the ReadMe API
+- [Get ReadMe's outbound IP addresses](https://docs.readme.com/main/reference/getoutboundips-1.md): Get all of ReadMe's IP addresses used for outbound webhook requests and the "Try It!" button on the API Explorer.  Although ReadMe's outbound IP addresses may change, the IPs in this API response will be valid for at least 7 days. If you configure your API or webhooks to limit access based on these IPs, you should refresh the IP list from this endpoint weekly.
+- [Ask Owlbot AI a question](https://docs.readme.com/main/reference/askowlbot-1.md): Ask Owlbot a question about the content of your docs.
+- [Limiting API Results](https://docs.readme.com/main/reference/pagination.md)
+- [Get project metadata](https://docs.readme.com/main/reference/getproject-1.md): Returns data about your project.
+- [Create a recipe](https://docs.readme.com/main/reference/createrecipe.md): Create a new recipe in your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Delete a recipe](https://docs.readme.com/main/reference/deleterecipe.md): Delete a recipe from your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Get a recipe](https://docs.readme.com/main/reference/getrecipe.md): Get a recipe from your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Get all recipes](https://docs.readme.com/main/reference/getrecipes.md): Get all recipes from your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Update an existing recipe](https://docs.readme.com/main/reference/updaterecipe.md): Update an existing recipe in your ReadMe project.  >📘 > This route is only available to projects that are using [ReadMe Refactored](https://docs.readme.com/main/docs/welcome-to-readme-refactored).
+- [Perform a search query](https://docs.readme.com/main/reference/search-3.md): Searches the ReadMe project.
+- [Authentication](https://docs.readme.com/main/reference/authentication.md): Set up the welcome page for your API to help users make their first call.
+- [Getting Started](https://docs.readme.com/main/reference/getting-started.md): Set up the welcome page for your API to help users make their first call.
+- [My Requests](https://docs.readme.com/main/reference/my-requests.md): Set up the welcome page for your API to help users make their first call.
+
+## Recipes
+- [Create a Custom Component](https://docs.readme.com/main/recipes/create-a-custom-component.md)
+- [Developer Dashboard Node/Express Configuration](https://docs.readme.com/main/recipes/developer-dashboard-nodeexpress-configuration.md)
+- [Sync Directory of Files via Code](https://docs.readme.com/main/recipes/sync-directory-of-files-via-code.md)
+- [Sync OAS files via Bitbucket Pipelines](https://docs.readme.com/main/recipes/sync-oas-files-via-bitbucket-pipelines.md)
+- [Sync OAS files via GitHub Actions](https://docs.readme.com/main/recipes/sync-oas-files-via-github-actions.md)
+- [Verify Webhook Signature](https://docs.readme.com/main/recipes/verify-webhook-signature.md)
+
+## Pages
+- [404](https://docs.readme.com/main/404.md)
+- [Enterprise Workflow Guide](https://docs.readme.com/main/branching-for-enterprise.md)
+- [What's a Custom Page?](https://docs.readme.com/main/custom-page.md)
+- [What's New with ReadMe Enterprise Refactored](https://docs.readme.com/main/enterprise-refactored-overview.md)
+- [What's New with ReadMe Refactored](https://docs.readme.com/main/refactored-features-overview.md)
+- [Welcome to Our New Editing UI](https://docs.readme.com/main/welcome-to-our-new-editor-ui.md)
+- [What is ReadMe Sync?](https://docs.readme.com/main/what-is-readme-sync.md)
+
+## Changelog
+- [Multiple Chat Windows for AI Agent](https://docs.readme.com/main/changelog/multiple-chat-windows-for-ai-agent.md)
+- [Broken Link Checker](https://docs.readme.com/main/changelog/broken-link-checker.md)
+- [Smarter Search & Scheduled Docs Audits](https://docs.readme.com/main/changelog/search-and-audit-scheduler.md)
+- [Preview Mode & API Method Styles](https://docs.readme.com/main/changelog/preview-mode-api-method-styles.md)
+- [Bug Fixes & Improvements](https://docs.readme.com/main/changelog/bug-fixes-and-improvements-1.md)

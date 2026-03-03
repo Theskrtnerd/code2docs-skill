@@ -1,0 +1,1604 @@
+openapi: 3.1.0
+info:
+  title: ReadMe AI Service API
+  description: |
+    AI service powering MCP server, chat, vectorization, linting, and LLM integrations for ReadMe documentation projects.
+
+    ## Authentication
+    All endpoints require Bearer token authentication via the `Authorization` header, except for the GitHub webhook endpoint which uses HMAC-SHA256 signature verification.
+
+    ## Streaming Responses
+    Several chat and MDX endpoints return Server-Sent Events (SSE) streams with `Content-Type: text/event-stream`.
+  version: 1.0.0
+  contact:
+    name: ReadMe
+    url: https://readme.com
+
+servers:
+  - url: http://localhost:9563
+    description: Local development
+  - url: https://{subdomain}.readme.io
+    description: Production
+    variables:
+      subdomain:
+        default: api
+        description: Project subdomain
+
+tags:
+  - name: Healthcheck
+    description: Server health monitoring
+  - name: Chat
+    description: AI chat endpoints with optional documentation context
+  - name: Vectorization
+    description: Document indexing and semantic search
+  - name: Lint
+    description: AI-powered content linting and style checking
+  - name: MCP
+    description: Model Context Protocol server management
+  - name: MDX
+    description: MDX content fixing
+  - name: Prompts
+    description: Prompt generation utilities
+  - name: GitHub
+    description: GitHub App integration management
+  - name: Webhooks
+    description: Webhook receivers
+
+paths:
+  /healthcheck:
+    get:
+      operationId: healthcheck
+      summary: Check server health
+      tags:
+        - Healthcheck
+      responses:
+        "200":
+          description: Server is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+                    example: healthy
+      security:
+        - bearerAuth: []
+
+  /chat/simple:
+    post:
+      operationId: simpleChat
+      summary: Simple chat without documentation context
+      description: Sends a single prompt to the LLM and streams the response as Server-Sent Events.
+      tags:
+        - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SimpleChatRequest"
+      responses:
+        "200":
+          description: Streaming text response
+          content:
+            text/event-stream:
+              schema:
+                type: string
+      security:
+        - bearerAuth: []
+
+  /chat/withContext:
+    post:
+      operationId: withContext
+      summary: One-shot chat with documentation context
+      description: Sends a message with documentation context from specified subdomains. Streams the response as SSE.
+      tags:
+        - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OneShotRequest"
+      responses:
+        "200":
+          description: Streaming text response
+          content:
+            text/event-stream:
+              schema:
+                type: string
+      security:
+        - bearerAuth: []
+
+  /chat/conversation:
+    post:
+      operationId: conversation
+      summary: Conversational chat without documentation context
+      description: Sends a conversation history to the LLM and streams the response.
+      tags:
+        - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConversationRequest"
+      responses:
+        "200":
+          description: Streaming text response
+          content:
+            text/event-stream:
+              schema:
+                type: string
+      security:
+        - bearerAuth: []
+
+  /chat/conversationWithContext:
+    post:
+      operationId: conversationWithContext
+      summary: Conversational chat with documentation context
+      description: Sends a conversation history with documentation context from specified subdomains. Streams the response as SSE.
+      tags:
+        - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConversationWithContextRequest"
+      responses:
+        "200":
+          description: Streaming text response
+          content:
+            text/event-stream:
+              schema:
+                type: string
+      security:
+        - bearerAuth: []
+
+  /chat/agentChat:
+    post:
+      operationId: agentChat
+      summary: Agent chat with tool calling capabilities
+      description: Sends messages to an AI agent that can use tools (knowledge retrieval, web search, URL analysis, content editing). Streams NDJSON responses.
+      tags:
+        - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AgentChatRequest"
+      responses:
+        "200":
+          description: Streaming NDJSON response
+          content:
+            text/event-stream:
+              schema:
+                type: string
+      security:
+        - bearerAuth: []
+
+  /chat/generateTitle:
+    post:
+      operationId: generateTitle
+      summary: Generate a chat conversation title
+      description: Generates a concise title for a chat conversation based on the message history.
+      tags:
+        - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateTitleRequest"
+      responses:
+        "200":
+          description: Generated title
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenerateTitleResponse"
+      security:
+        - bearerAuth: []
+
+  /chat/models/askaiDefault:
+    get:
+      operationId: askaiDefault
+      summary: Get default Ask AI models
+      description: Returns the default model configuration for Ask AI chat.
+      tags:
+        - Chat
+      responses:
+        "200":
+          description: Default model list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - models
+                properties:
+                  models:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - modelId
+                      properties:
+                        modelId:
+                          type: string
+      security:
+        - bearerAuth: []
+
+  /chat/models/agentDefault:
+    get:
+      operationId: agentDefault
+      summary: Get default Agent models
+      description: Returns the default model configuration for Agent chat.
+      tags:
+        - Chat
+      responses:
+        "200":
+          description: Default model list
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - models
+                properties:
+                  models:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - id
+                        - provider
+                        - name
+                      properties:
+                        id:
+                          type: string
+                        provider:
+                          type: string
+                        name:
+                          type: string
+      security:
+        - bearerAuth: []
+
+  /vectorization/vectorizeLegacy:
+    post:
+      operationId: vectorizeLegacy
+      summary: Vectorize a legacy project
+      description: Indexes all documentation for a legacy project into vector embeddings for semantic search.
+      tags:
+        - Vectorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VectorizeRequest"
+      responses:
+        "200":
+          description: Vectorization result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VectorizeResponse"
+      security:
+        - bearerAuth: []
+
+  /vectorization/vectorize:
+    post:
+      operationId: vectorize
+      summary: Vectorize a project
+      description: Indexes all documentation for a project into vector embeddings for semantic search.
+      tags:
+        - Vectorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VectorizeRequest"
+      responses:
+        "200":
+          description: Vectorization result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VectorizeResponse"
+      security:
+        - bearerAuth: []
+
+  /vectorization/vectorizeFile:
+    post:
+      operationId: vectorizeFile
+      summary: Queue a single file for vectorization
+      description: Indexes a single documentation file into vector embeddings.
+      tags:
+        - Vectorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VectorizeFileRequest"
+      responses:
+        "200":
+          description: Vectorization result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VectorizeResponse"
+      security:
+        - bearerAuth: []
+
+  /vectorization/setCustomContext:
+    post:
+      operationId: setCustomContext
+      summary: Set custom context for a project
+      description: Stores custom context text that will be included in RAG queries for the specified project.
+      tags:
+        - Vectorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetCustomContextRequest"
+      responses:
+        "200":
+          description: Result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VectorizeResponse"
+      security:
+        - bearerAuth: []
+
+  /vectorization/searchDocs:
+    post:
+      operationId: searchDocs
+      summary: Search documents across subdomains
+      description: Performs semantic search across vectorized documentation for the specified subdomains.
+      tags:
+        - Vectorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SearchDocsRequest"
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchDocsResponse"
+      security:
+        - bearerAuth: []
+
+  /lint/rulesV2:
+    post:
+      operationId: rulesV2
+      summary: Run lint rules on content
+      description: Analyzes markdown content against a set of lint rules and returns violations with position information.
+      tags:
+        - Lint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RunLintV2Input"
+      responses:
+        "200":
+          description: Lint results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RulesV2Response"
+      security:
+        - bearerAuth: []
+
+  /lint/styleguideV2:
+    post:
+      operationId: styleguideV2
+      summary: Run style guide check on content
+      description: Evaluates markdown content against a style guide prompt and returns scored criteria.
+      tags:
+        - Lint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RunStyleguideV2Input"
+      responses:
+        "200":
+          description: Style guide results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StyleguideV2Response"
+      security:
+        - bearerAuth: []
+
+  /lint/styleguideResultsSummary:
+    post:
+      operationId: styleguideResultsSummary
+      summary: Summarize style guide results
+      description: Generates a concise natural-language summary of style guide evaluation results.
+      tags:
+        - Lint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RunStyleguideResultsSummaryInput"
+      responses:
+        "200":
+          description: Summary result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StyleguideResultsSummaryResponse"
+      security:
+        - bearerAuth: []
+
+  /lint/suggestRules:
+    post:
+      operationId: suggestRules
+      summary: Suggest lint rules from content
+      description: Analyzes multiple content pages and suggests common lint rules that could be applied.
+      tags:
+        - Lint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SuggestRulesInput"
+      responses:
+        "200":
+          description: Suggested rules
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuggestRulesResponse"
+      security:
+        - bearerAuth: []
+
+  /mcp/state:
+    post:
+      operationId: changeState
+      summary: Change MCP state
+      description: Enables or disables the MCP server for a project.
+      tags:
+        - MCP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/McpStateRequest"
+      responses:
+        "200":
+          description: Updated state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/McpStateResponse"
+      security:
+        - bearerAuth: []
+
+  /mcp/availableTools:
+    post:
+      operationId: availableTools
+      summary: Get available MCP tools
+      description: Returns the list of MCP tools available for a project based on its configuration.
+      tags:
+        - MCP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AvailableToolsRequest"
+      responses:
+        "200":
+          description: Available tools list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AvailableToolsResponse"
+      security:
+        - bearerAuth: []
+
+  /mcp:
+    post:
+      operationId: mcpProtocol
+      summary: MCP protocol endpoint
+      description: Handles Model Context Protocol requests via streamable HTTP transport. Used by AI assistants like Claude and Cursor to interact with project documentation.
+      tags:
+        - MCP
+      parameters:
+        - name: branch
+          in: query
+          description: Documentation branch name
+          schema:
+            type: string
+        - name: projects
+          in: query
+          description: Filter projects by subdomain
+          schema:
+            type: string
+      responses:
+        "200":
+          description: JSON-RPC 2.0 response
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /mdx/fix:
+    post:
+      operationId: fixMdx
+      summary: Fix MDX content
+      description: Uses AI to fix MDX content based on error messages and/or instructions. Streams the corrected content as SSE.
+      tags:
+        - MDX
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FixMdxRequest"
+      responses:
+        "200":
+          description: Streaming corrected MDX content
+          content:
+            text/event-stream:
+              schema:
+                type: string
+      security:
+        - bearerAuth: []
+
+  /prompts/generate:
+    post:
+      operationId: generatePrompt
+      summary: Generate a prompt
+      description: Generates a ready-to-use prompt based on the specified type and parameters.
+      tags:
+        - Prompts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PromptRequest"
+      responses:
+        "200":
+          description: Generated prompt
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PromptResponse"
+      security:
+        - bearerAuth: []
+
+  /github/connections:
+    get:
+      operationId: githubGetConnection
+      summary: Get GitHub installation details
+      description: Returns the stored GitHub App installation details for a given installation ID.
+      tags:
+        - GitHub
+      parameters:
+        - name: installationId
+          in: query
+          required: true
+          description: GitHub App installation ID
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: Connection details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GithubConnectionResponse"
+        "404":
+          description: Installation not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          $ref: "#/components/responses/InternalError"
+      security:
+        - bearerAuth: []
+
+  /github/register-account:
+    post:
+      operationId: githubRegisterAccount
+      summary: Register a GitHub App installation
+      description: Stores GitHub App installation details for a ReadMe project.
+      tags:
+        - GitHub
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GithubRegisterAccountRequest"
+      responses:
+        "200":
+          description: Registration successful
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+        "500":
+          $ref: "#/components/responses/InternalError"
+      security:
+        - bearerAuth: []
+
+  /github/repositories:
+    get:
+      operationId: githubListRepositories
+      summary: List GitHub repositories
+      description: Returns stored repositories and the selected target repository for a subdomain.
+      tags:
+        - GitHub
+      parameters:
+        - name: subdomain
+          in: query
+          required: true
+          description: Project subdomain
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: Repository list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GithubRepositoriesResponse"
+        "404":
+          description: Installation not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          $ref: "#/components/responses/InternalError"
+      security:
+        - bearerAuth: []
+
+  /github/target-repository:
+    post:
+      operationId: githubSetTargetRepository
+      summary: Set target repository
+      description: Persists the repository that should be targeted for documentation updates.
+      tags:
+        - GitHub
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GithubSetTargetRepositoryRequest"
+      responses:
+        "200":
+          description: Target repository set
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - targetRepository
+                properties:
+                  targetRepository:
+                    type: string
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Installation not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          $ref: "#/components/responses/InternalError"
+      security:
+        - bearerAuth: []
+
+  /github/account:
+    delete:
+      operationId: githubUnlinkAccount
+      summary: Unlink GitHub installation
+      description: Removes stored GitHub App installation details for a ReadMe project.
+      tags:
+        - GitHub
+      parameters:
+        - name: subdomain
+          in: query
+          required: true
+          description: Project subdomain
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: Account unlinked
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+        "404":
+          description: Installation not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          $ref: "#/components/responses/InternalError"
+      security:
+        - bearerAuth: []
+
+  /webhooks/github:
+    post:
+      operationId: githubWebhook
+      summary: GitHub webhook receiver
+      description: Receives GitHub webhook events for documentation updates. Authenticated via HMAC-SHA256 signature, not bearer token.
+      tags:
+        - Webhooks
+      parameters:
+        - name: x-github-event
+          in: header
+          required: true
+          description: GitHub event type
+          schema:
+            type: string
+        - name: x-github-delivery
+          in: header
+          required: true
+          description: Unique delivery ID
+          schema:
+            type: string
+        - name: x-hub-signature-256
+          in: header
+          required: true
+          description: HMAC-SHA256 signature of payload
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Webhook received
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - received
+                properties:
+                  received:
+                    type: boolean
+                    example: true
+        "400":
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Invalid signature
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    # Shared schemas
+    Model:
+      type: object
+      required:
+        - modelId
+      properties:
+        apiKey:
+          type: string
+          description: API key for custom models (required with baseUrl)
+        baseUrl:
+          type: string
+          format: uri
+          description: Base URL for custom models (required with apiKey)
+        modelId:
+          type: string
+          minLength: 1
+          description: Model identifier
+
+    LLMOptions:
+      type: object
+      properties:
+        model:
+          $ref: "#/components/schemas/Model"
+        temperature:
+          type: number
+          description: Sampling temperature
+        maxRetries:
+          type: number
+          minimum: 0
+          description: Maximum retry attempts
+        fallbackModels:
+          type: array
+          items:
+            $ref: "#/components/schemas/Model"
+          description: Fallback models if primary fails
+
+    Customization:
+      type: object
+      properties:
+        answerLength:
+          type: string
+          enum: [long, medium, short, unrestricted]
+          description: Desired response length
+        customTone:
+          type: string
+          description: Custom tone instructions
+        defaultAnswer:
+          type: string
+          description: Default answer when no context is found
+        forbiddenWords:
+          type: string
+          description: Words to avoid in responses
+        tone:
+          type: string
+          description: Response tone
+
+    PageContext:
+      type: object
+      description: Current page information for contextual responses
+      properties:
+        title:
+          type: string
+        slug:
+          type: string
+        content:
+          type: string
+        description:
+          type: string
+
+    ChatMessage:
+      type: object
+      required:
+        - role
+        - content
+      properties:
+        role:
+          type: string
+          enum: [user, ai, system]
+        content:
+          type: string
+
+    LanguageModelUsage:
+      type: object
+      properties:
+        completion_tokens:
+          type: number
+        prompt_tokens:
+          type: number
+
+    Error:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+
+    # Chat schemas
+    SimpleChatRequest:
+      type: object
+      required:
+        - prompt
+      properties:
+        prompt:
+          type: string
+        llmOptions:
+          $ref: "#/components/schemas/LLMOptions"
+
+    OneShotRequest:
+      type: object
+      required:
+        - message
+        - subdomains
+      properties:
+        message:
+          type: string
+        subdomains:
+          type: array
+          items:
+            type: string
+        customization:
+          $ref: "#/components/schemas/Customization"
+        llmOptions:
+          $ref: "#/components/schemas/LLMOptions"
+        pageContext:
+          $ref: "#/components/schemas/PageContext"
+
+    ConversationRequest:
+      type: object
+      required:
+        - messages
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChatMessage"
+        llmOptions:
+          $ref: "#/components/schemas/LLMOptions"
+
+    ConversationWithContextRequest:
+      type: object
+      required:
+        - messages
+        - subdomains
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChatMessage"
+        subdomains:
+          type: array
+          items:
+            type: string
+        customization:
+          $ref: "#/components/schemas/Customization"
+        llmOptions:
+          $ref: "#/components/schemas/LLMOptions"
+        pageContext:
+          $ref: "#/components/schemas/PageContext"
+
+    AgentChatRequest:
+      type: object
+      required:
+        - messages
+        - llmOptions
+        - context
+        - subdomains
+      properties:
+        messages:
+          type: array
+          items:
+            type: object
+            description: UI message objects
+        llmOptions:
+          $ref: "#/components/schemas/LLMOptions"
+        context:
+          type: object
+          additionalProperties:
+            type: string
+        subdomains:
+          type: array
+          items:
+            type: string
+
+    GenerateTitleRequest:
+      type: object
+      required:
+        - messages
+      properties:
+        messages:
+          type: array
+          items:
+            type: object
+            description: UI message objects
+
+    GenerateTitleResponse:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+
+    # Vectorization schemas
+    VectorizeRequest:
+      type: object
+      required:
+        - subdomain
+      properties:
+        subdomain:
+          type: string
+
+    VectorizeFileRequest:
+      type: object
+      required:
+        - subdomain
+        - slug
+        - kind
+      properties:
+        subdomain:
+          type: string
+        slug:
+          type: string
+        kind:
+          type: string
+          enum: [doc, reference]
+        branch:
+          type: string
+          default: stable
+
+    SetCustomContextRequest:
+      type: object
+      required:
+        - subdomain
+        - content
+      properties:
+        subdomain:
+          type: string
+        content:
+          type: string
+          description: Custom context text
+
+    SearchDocsRequest:
+      type: object
+      required:
+        - subdomains
+        - query
+      properties:
+        subdomains:
+          type: array
+          items:
+            type: string
+        query:
+          type: string
+          maxLength: 1000
+        maxResults:
+          type: integer
+          minimum: 1
+
+    VectorizeResponse:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: string
+          enum: [success, error]
+        message:
+          type: string
+
+    SearchDocsResponse:
+      type: object
+      required:
+        - documents
+      properties:
+        documents:
+          type: array
+          items:
+            type: object
+            required:
+              - content
+              - metadata
+              - score
+            properties:
+              content:
+                type: string
+              metadata:
+                type: object
+                additionalProperties: true
+              score:
+                type: number
+
+    # Lint schemas
+    RunLintV2Input:
+      type: object
+      required:
+        - content
+        - prompt
+        - type
+      properties:
+        content:
+          type: string
+        prompt:
+          type: string
+        type:
+          type: string
+          enum: [errors, warnings]
+        llmOptions:
+          $ref: "#/components/schemas/LLMOptions"
+
+    RunStyleguideV2Input:
+      type: object
+      required:
+        - content
+        - prompt
+      properties:
+        content:
+          type: string
+        prompt:
+          type: string
+        llmOptions:
+          $ref: "#/components/schemas/LLMOptions"
+
+    RunStyleguideResultsSummaryInput:
+      type: object
+      required:
+        - results
+        - prompt
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/StyleguideResult"
+        prompt:
+          type: string
+        llmOptions:
+          $ref: "#/components/schemas/LLMOptions"
+
+    SuggestRulesInput:
+      type: object
+      required:
+        - contents
+        - type
+      properties:
+        llmOptions:
+          $ref: "#/components/schemas/LLMOptions"
+        contents:
+          type: array
+          items:
+            type: string
+          description: Content pages to analyze
+        type:
+          type: string
+          enum: [styleguide, warning, error]
+          description: Rule category to evaluate
+
+    LintViolation:
+      type: object
+      required:
+        - rule
+        - violation
+      properties:
+        rule:
+          type: string
+          description: 1 to 3 word title of the rule violated
+        violation:
+          type: object
+          required:
+            - message
+            - start
+            - end
+          properties:
+            message:
+              type: string
+              description: Short description of the issue
+            start:
+              type: number
+              description: Starting character index of the violation
+            end:
+              type: number
+              description: Ending character index of the violation
+
+    StyleguideResult:
+      type: object
+      required:
+        - title
+        - score
+        - description
+      properties:
+        title:
+          type: string
+          description: 1 to 3 word title of the criteria
+        score:
+          type: number
+          description: Score between 0 and 10
+        description:
+          type: string
+          description: How well the content adheres to this criteria
+
+    RulesV2Response:
+      type: object
+      required:
+        - result
+        - model
+        - usage
+        - duration
+      properties:
+        result:
+          type: array
+          items:
+            $ref: "#/components/schemas/LintViolation"
+        model:
+          type: string
+        usage:
+          $ref: "#/components/schemas/LanguageModelUsage"
+        duration:
+          type: number
+
+    StyleguideV2Response:
+      type: object
+      required:
+        - result
+        - model
+        - usage
+        - duration
+      properties:
+        result:
+          type: array
+          items:
+            $ref: "#/components/schemas/StyleguideResult"
+        model:
+          type: string
+        usage:
+          $ref: "#/components/schemas/LanguageModelUsage"
+        duration:
+          type: number
+
+    StyleguideResultsSummaryResponse:
+      type: object
+      required:
+        - result
+        - model
+        - usage
+        - duration
+      properties:
+        result:
+          type: object
+          required:
+            - summary
+          properties:
+            summary:
+              type: string
+              description: Concise summary in 2-3 sentences
+        model:
+          type: string
+        usage:
+          $ref: "#/components/schemas/LanguageModelUsage"
+        duration:
+          type: number
+
+    SuggestRulesResponse:
+      type: object
+      required:
+        - result
+        - model
+        - usage
+        - duration
+      properties:
+        result:
+          type: object
+          required:
+            - rules
+          properties:
+            rules:
+              type: array
+              items:
+                type: object
+                required:
+                  - rule
+                properties:
+                  rule:
+                    type: string
+                    description: 1 line description of the rule
+        model:
+          type: string
+        usage:
+          $ref: "#/components/schemas/LanguageModelUsage"
+        duration:
+          type: number
+
+    # MCP schemas
+    McpStateRequest:
+      type: object
+      required:
+        - subdomain
+        - state
+      properties:
+        subdomain:
+          type: string
+        state:
+          type: string
+          enum: [enabled, disabled]
+
+    McpStateResponse:
+      type: object
+      required:
+        - state
+      properties:
+        state:
+          type: string
+          enum: [enabled, disabled]
+
+    AvailableToolsRequest:
+      type: object
+      required:
+        - subdomain
+        - disabled_tools
+        - schemas
+        - branch
+      properties:
+        subdomain:
+          type: string
+        disabled_tools:
+          type: array
+          items:
+            type: string
+        schemas:
+          type: array
+          items:
+            type: string
+        branch:
+          type: string
+
+    AvailableToolsResponse:
+      type: object
+      required:
+        - tools
+      properties:
+        tools:
+          type: array
+          items:
+            type: string
+
+    # MDX schemas
+    FixMdxRequest:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+        error:
+          type: string
+        instructions:
+          type: string
+        modelId:
+          type: string
+        temperature:
+          type: number
+
+    # Prompt schemas
+    PromptRequest:
+      oneOf:
+        - type: object
+          required:
+            - type
+            - variant
+          properties:
+            type:
+              type: string
+              const: lintFix
+            variant:
+              type: string
+              enum: [errors, warnings, styleguide]
+        - type: object
+          required:
+            - type
+            - variant
+          properties:
+            type:
+              type: string
+              const: quickAction
+            variant:
+              type: string
+              enum: [fixGrammar, makeConcise, addLayout]
+        - type: object
+          required:
+            - type
+            - title
+            - errorMsg
+          properties:
+            type:
+              type: string
+              const: errorFix
+            title:
+              type: string
+            errorMsg:
+              type: string
+        - type: object
+          required:
+            - type
+            - results
+          properties:
+            type:
+              type: string
+              const: hiddenContext
+            results:
+              type: object
+              additionalProperties: true
+      discriminator:
+        propertyName: type
+
+    PromptResponse:
+      type: object
+      required:
+        - prompt
+      properties:
+        prompt:
+          type: string
+
+    # GitHub schemas
+    GithubAccount:
+      type: object
+      required:
+        - id
+        - login
+        - type
+      properties:
+        id:
+          type: integer
+        login:
+          type: string
+        type:
+          type: string
+          enum: [Organization, User]
+        site_admin:
+          type: boolean
+        avatar_url:
+          type: string
+        html_url:
+          type: string
+
+    GithubRepository:
+      type: object
+      required:
+        - id
+        - name
+        - full_name
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        full_name:
+          type: string
+        private:
+          type: boolean
+
+    GithubRegisterAccountRequest:
+      type: object
+      required:
+        - installationId
+        - subdomain
+        - projectBaseUrl
+        - account
+        - repositories
+      properties:
+        installationId:
+          type: integer
+        subdomain:
+          type: string
+          minLength: 1
+        projectBaseUrl:
+          type: string
+          minLength: 1
+        account:
+          $ref: "#/components/schemas/GithubAccount"
+        permissions:
+          type: object
+          additionalProperties: true
+        events:
+          type: array
+          items:
+            type: string
+        targetType:
+          type: string
+        repositorySelection:
+          type: string
+          enum: [all, selected]
+        repositories:
+          type: array
+          items:
+            $ref: "#/components/schemas/GithubRepository"
+
+    GithubSetTargetRepositoryRequest:
+      type: object
+      required:
+        - subdomain
+        - targetRepository
+      properties:
+        subdomain:
+          type: string
+          minLength: 1
+        targetRepository:
+          type: string
+          minLength: 1
+
+    GithubConnectionResponse:
+      type: object
+      required:
+        - connections
+      properties:
+        connections:
+          type: array
+          items:
+            type: object
+            properties:
+              installationId:
+                type: integer
+              subdomain:
+                type: string
+              account:
+                $ref: "#/components/schemas/GithubAccount"
+              permissions:
+                type: object
+                additionalProperties: true
+              events:
+                type: array
+                items:
+                  type: string
+              targetType:
+                type: string
+              repositories:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GithubRepository"
+              targetRepository:
+                type: string
+
+    GithubRepositoriesResponse:
+      type: object
+      required:
+        - repositories
+      properties:
+        repositories:
+          type: array
+          items:
+            $ref: "#/components/schemas/GithubRepository"
+        targetRepository:
+          type: string
+
+  responses:
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication
+
+security:
+  - bearerAuth: []
