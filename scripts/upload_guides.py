@@ -4,9 +4,13 @@
 Requires:
   - rdme CLI installed: npm install -g rdme
   - Authenticated: rdme login (or RDME_API_KEY env var)
+
+For local dev: use --local flag to target a local ReadMe instance (readme.local:3000).
+Requires: RDME_LOCALHOST=1 rdme login (run once to authenticate with your local instance).
 """
 
 import argparse
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -30,16 +34,21 @@ def check_rdme():
     return False
 
 
-def upload_guides(guides_dir: Path, branch: str, dry_run: bool = False):
+def upload_guides(guides_dir: Path, branch: str, dry_run: bool = False, local: bool = False):
     """Upload guides directory to ReadMe via rdme CLI."""
     md_files = sorted(guides_dir.glob("*.md"))
     if not md_files:
         print(f"Error: No .md files found in {guides_dir}", file=sys.stderr)
         return False
 
-    print(f"Uploading {len(md_files)} guides to branch '{branch}'...")
+    target = "local ReadMe instance" if local else "ReadMe"
+    print(f"Uploading {len(md_files)} guides to {target} (branch '{branch}')...")
     for f in md_files:
         print(f"  - {f.name}")
+
+    env = os.environ.copy()
+    if local:
+        env["RDME_LOCALHOST"] = "1"
 
     cmd = ["rdme", "docs", "upload", str(guides_dir), "--branch", branch]
     if dry_run:
@@ -48,7 +57,7 @@ def upload_guides(guides_dir: Path, branch: str, dry_run: bool = False):
     else:
         print("\n[UPLOADING] Creating/updating guides on ReadMe...\n")
 
-    result = subprocess.run(cmd, timeout=120)
+    result = subprocess.run(cmd, timeout=120, env=env)
 
     if result.returncode == 0:
         if dry_run:
@@ -66,6 +75,7 @@ def main():
     parser.add_argument("guides_dir", help="Directory containing guide .md files with frontmatter")
     parser.add_argument("--branch", "-b", default="stable", help="ReadMe branch/version (default: stable)")
     parser.add_argument("--dry-run", "-d", action="store_true", help="Validate without uploading")
+    parser.add_argument("--local", "-l", action="store_true", help="Upload to local ReadMe instance (readme.local:3000)")
     args = parser.parse_args()
 
     guides_dir = Path(args.guides_dir)
@@ -85,7 +95,7 @@ def main():
     if not check_rdme():
         sys.exit(1)
 
-    success = upload_guides(guides_dir, args.branch, args.dry_run)
+    success = upload_guides(guides_dir, args.branch, args.dry_run, local=args.local)
     sys.exit(0 if success else 1)
 
 

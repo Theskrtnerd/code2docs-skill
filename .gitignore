@@ -1,3 +1,10 @@
 node_modules/
 .pptx-venv/
 .env
+.claude/
+__pycache__/
+
+# Generated docs output
+output/
+guide_plan.json
+fetched_examples/

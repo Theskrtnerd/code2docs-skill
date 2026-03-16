@@ -6,7 +6,7 @@ Point it at a repo, pick a style (Stripe, ReadMe, or Mintlify), and get a full s
 
 ## How it works
 
-The pipeline has five phases, each backed by a standalone Python script:
+The pipeline has five phases, orchestrated directly by Claude Code (no external AI APIs needed):
 
 ```
 Codebase ──> Fetch Examples ──> Plan Guides ──> Generate Guides ──> Upload
@@ -14,106 +14,76 @@ Codebase ──> Fetch Examples ──> Plan Guides ──> Generate Guides ─�
 ```
 
 1. **Fetch examples** — Downloads real markdown docs from Stripe, ReadMe, or Mintlify (via their `llms.txt` `.md` URLs) to use as style references.
-2. **Plan guides** — Scans every markdown file in your codebase and asks an LLM to propose a set of guides with slugs, titles, and descriptions.
-3. **Generate guides** — For each planned guide, sends codebase context + style examples to an LLM and writes the output as markdown with YAML frontmatter. Also assembles an `llms.txt` index.
-4. **Upload OpenAPI spec** — Optionally generates and uploads an OpenAPI 3.1 spec to ReadMe via the `rdme` CLI.
-5. **Upload guides** — Pushes all generated guides to ReadMe via `rdme docs upload`.
+2. **Plan guides** — Claude scans every markdown file in your codebase and proposes a set of guides with slugs, titles, and descriptions.
+3. **Generate guides** — For each planned guide, Claude writes the output as markdown with YAML frontmatter and MDX components. Also assembles an `llms.txt` index.
+4. **Generate OpenAPI spec** — Claude reads the codebase's route definitions, schemas, and types to produce an OpenAPI 3.1 spec.
+5. **Upload** — Pushes guides and OpenAPI spec to ReadMe via `rdme` CLI.
 
 ## Quick start
 
 ### Prerequisites
 
-- Python 3.10+
+- [Claude Code](https://claude.ai/code)
 - Node.js (for the `rdme` CLI)
-- An [OpenRouter](https://openrouter.ai) API key
+- Python 3.10+ (for the fetch/upload helper scripts)
 
 ### Setup
 
 ```bash
-# Clone the repo
-cd hackathon
-
-# Create a .env file with your API key
-echo "OPENROUTER_API_KEY=sk-or-v1-..." > .env
-
-# Create a virtual environment and install dependencies
-python3 -m venv .venv
-source .venv/bin/activate
-pip install openai
-
 # Install the ReadMe CLI (for uploading)
 npm install -g rdme
+
+# Authenticate with ReadMe (production)
 rdme login
+
+# Or authenticate with a local ReadMe instance
+RDME_LOCALHOST=1 rdme login
 ```
 
 ### Usage
 
-There are two ways to run the pipeline:
-
-#### Option A: Interactive CLI
-
-```bash
-python3 .claude/skills/generate-docs/scripts/run.py
-```
-
-This walks you through each step interactively — codebase path, style, project name, etc.
-
-#### Option B: Claude Code skill
-
-If you have [Claude Code](https://claude.ai/code) installed, just ask:
+With [Claude Code](https://claude.ai/code) installed, just ask:
 
 ```
 generate docs for /path/to/my/repo
 ```
 
-Claude orchestrates the full pipeline, asks clarifying questions, shows you the plan for approval, and runs each phase.
+Claude orchestrates the full pipeline — asks clarifying questions (style, doc type, target environment), shows you the plan for approval, generates each guide, and uploads everything to ReadMe.
 
-#### Option C: Run scripts individually
+#### Local dev mode
+
+If you're running a local ReadMe instance, Claude will ask whether to target production or local dev. When using local dev mode:
+
+- Uploads go to `http://dash.readme.local:3000` instead of `dash.readme.com`
+- Requires `readme.local` in your `/etc/hosts` (pointing to `127.0.0.1`)
+- Requires a one-time login: `RDME_LOCALHOST=1 rdme login`
+
+You can also use the upload scripts directly with the `--local` flag:
 
 ```bash
-cd .claude/skills/generate-docs
+# Upload guides to local instance
+python3 scripts/upload_guides.py output/guides --branch stable --local
 
-# 1. Fetch style examples (uses reference llms.txt files with .md URLs)
-python3 scripts/fetch_examples.py references/reference_llms_txt -o fetched_examples
-
-# 2. Plan guides
-python3 scripts/plan_guides.py /path/to/codebase -o guide_plan.json -e fetched_examples
-
-# 3. Generate guides
-python3 scripts/generate_guides.py /path/to/codebase \
-  -p guide_plan.json \
-  -o output \
-  -e fetched_examples \
-  -n "My Project"
-
-# 4. Upload OpenAPI spec (optional)
-python3 scripts/upload_openapi.py output/openapi.yaml --branch stable
-
-# 5. Upload guides to ReadMe
-python3 scripts/upload_guides.py output/guides --branch stable
+# Upload OpenAPI spec to local instance
+python3 scripts/upload_openapi.py output/openapi.yaml --branch stable --local
 ```
 
 ## Project structure
 
 ```
-hackathon/
-├── .env                          # OPENROUTER_API_KEY
+generate-docs/
+├── SKILL.md                  # Claude Code skill definition
 ├── README.md
-└── .claude/skills/generate-docs/
-    ├── SKILL.md                  # Claude Code skill definition
-    ├── scripts/
-    │   ├── run.py                # Interactive CLI (all-in-one)
-    │   ├── fetch_examples.py     # Phase 1: fetch style reference docs
-    │   ├── plan_guides.py        # Phase 2: LLM-powered guide planning
-    │   ├── generate_guides.py    # Phase 3: LLM-powered guide generation
-    │   ├── upload_openapi.py     # Phase 4: upload OpenAPI spec via rdme
-    │   └── upload_guides.py      # Phase 5: upload guides via rdme
-    └── references/
-        ├── llms-txt-format.md    # llms.txt format specification
-        └── reference_llms_txt/   # Real llms.txt files for style presets
-            ├── stripe_llms.txt
-            ├── readme_llms.txt
-            └── mintlify_llms.txt
+├── scripts/
+│   ├── fetch_examples.py     # Phase 1: fetch style reference docs
+│   ├── upload_openapi.py     # Upload OpenAPI spec via rdme
+│   └── upload_guides.py      # Upload guides via rdme
+└── references/
+    ├── llms-txt-format.md    # llms.txt format specification
+    └── reference_llms_txt/   # Real llms.txt files for style presets
+        ├── stripe_llms.txt
+        ├── readme_llms.txt
+        └── mintlify_llms.txt
 ```
 
 ## Output
@@ -127,6 +97,7 @@ output/
 │   ├── getting-started.md
 │   ├── api-reference.md
 │   └── ...
+├── openapi.yaml                  # OpenAPI 3.1 spec (if generated)
 └── llms.txt                      # LLM-friendly index of all guides
 ```
 
@@ -147,12 +118,9 @@ content:
 
 | Variable | Required | Description |
 |---|---|---|
-| `OPENROUTER_API_KEY` | Yes | API key for LLM calls (via [OpenRouter](https://openrouter.ai)) |
-| `MODEL` | No | LLM model override (default: `anthropic/claude-sonnet-4-5`) |
-| `BASE_URL` | No | API base URL override (default: `https://openrouter.ai/api/v1`) |
 | `RDME_API_KEY` | No | ReadMe API key (alternative to `rdme login`) |
 
-The scripts automatically load variables from the `.env` file in the project root.
+For local dev mode, the `RDME_LOCALHOST` env var is set automatically by the `--local` flag on upload scripts.
 
 ## Style presets
 
@@ -164,11 +132,4 @@ The fetcher pulls real markdown from documentation sites to use as quality refer
 | **ReadMe** | `docs.readme.com` | Getting started guides, API reference setup |
 | **Mintlify** | `mintlify.com/docs` | Quickstart, API playground, navigation guides |
 
-You can also pass `--url` to fetch from any documentation site that serves `.md` files, or point at the `references/reference_llms_txt/` directory to sample from hundreds of pages across all three providers.
-
-## How the LLM calls work
-
-- **Planning** (`plan_guides.py`): Sends all markdown files from the codebase (up to 120K chars) to the LLM and asks it to propose a table of contents. Returns a JSON array of `{slug, title, description}`.
-- **Generation** (`generate_guides.py`): For each guide in the plan, sends the codebase context + fetched style examples + the specific guide spec. The LLM writes a complete markdown guide with frontmatter. Runs sequentially (one LLM call per guide).
-
-Both scripts use [OpenRouter](https://openrouter.ai) as the default API gateway, which gives access to Claude, GPT-4, Gemini, and other models through a single API key.
+You can also pass `--url` to `fetch_examples.py` to fetch from any documentation site that serves `.md` files, or point at the `references/reference_llms_txt/` directory to sample from hundreds of pages across all three providers.

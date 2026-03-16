@@ -4,9 +4,13 @@
 Requires:
   - rdme CLI installed: npm install -g rdme
   - Authenticated: rdme login (or RDME_API_KEY env var)
+
+For local dev: use --local flag to target a local ReadMe instance (readme.local:3000).
+Requires: RDME_LOCALHOST=1 rdme login (run once to authenticate with your local instance).
 """
 
 import argparse
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -40,14 +44,19 @@ def validate_spec(spec_path: Path) -> bool:
     return False
 
 
-def upload_openapi(spec_path: Path, branch: str) -> bool:
+def upload_openapi(spec_path: Path, branch: str, local: bool = False) -> bool:
     """Upload an OpenAPI spec to ReadMe via rdme CLI."""
-    print(f"Uploading {spec_path.name} to branch '{branch}'...")
+    target = "local ReadMe instance" if local else "ReadMe"
+    print(f"Uploading {spec_path.name} to {target} (branch '{branch}')...")
+
+    env = os.environ.copy()
+    if local:
+        env["RDME_LOCALHOST"] = "1"
 
     cmd = ["rdme", "openapi", "upload", str(spec_path), "--branch", branch]
     print(f"Running: {' '.join(cmd)}\n")
 
-    result = subprocess.run(cmd, timeout=120)
+    result = subprocess.run(cmd, timeout=120, env=env)
 
     if result.returncode == 0:
         print("\nOpenAPI spec uploaded successfully!")
@@ -61,6 +70,7 @@ def main():
     parser = argparse.ArgumentParser(description="Upload an OpenAPI spec to ReadMe")
     parser.add_argument("spec", help="Path to the OpenAPI spec file (YAML or JSON)")
     parser.add_argument("--branch", "-b", default="stable", help="ReadMe branch/version (default: stable)")
+    parser.add_argument("--local", "-l", action="store_true", help="Upload to local ReadMe instance (readme.local:3000)")
     args = parser.parse_args()
 
     spec_path = Path(args.spec)
@@ -74,7 +84,7 @@ def main():
     if not check_rdme():
         sys.exit(1)
 
-    success = upload_openapi(spec_path, args.branch)
+    success = upload_openapi(spec_path, args.branch, local=args.local)
     sys.exit(0 if success else 1)
 
 
